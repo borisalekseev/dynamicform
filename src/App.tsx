@@ -1,24 +1,23 @@
-import React from 'react';
+import {Element} from "./el"
+import {IProcessingProps, ProcessingFormProvider} from "./provider"
 import logo from './logo.svg';
 import './App.css';
+import { useFormikContext } from "formik";
+import { Button } from "react-bootstrap";
+
+const A = () => {
+  const {values} = useFormikContext<IProcessingProps>()
+  return <Button onClick={() => console.log(values)}>AAA</Button>
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ProcessingFormProvider list={[1, 2, 4]}>
+        <>{[1, 2, 4].map((el, index) => <Element key={index} distinct_id={el}/>)}
+        <A></A>
+        </>
+      </ProcessingFormProvider>
     </div>
   );
 }
